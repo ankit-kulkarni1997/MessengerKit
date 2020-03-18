@@ -158,14 +158,14 @@ open class MSGMessengerViewController: UIViewController {
     // MARK: - Setup
     
     private func setupInput() {
-        
-        guard let view = view as? MSGMessengerView else {
-            fatalError("Root view is not MSGMessengerView!!")
+        if let view = view as? MSGMessengerView {
+            view.inputViewContainer.bottomAnchor.constraint(equalTo: keyboardLayoutGuide.topAnchor).isActive = true
         }
-        
         view.addLayoutGuide(keyboardLayoutGuide)
-        view.inputViewContainer.bottomAnchor.constraint(equalTo: keyboardLayoutGuide.topAnchor).isActive = true
+        setupInputTargets()
+    }
     
+    private func setupInputTargets() {
         messageInputView.addTarget(self, action: #selector(inputViewDidChange(inputView:)), for: .valueChanged)
         messageInputView.addTarget(self, action: #selector(inputViewPrimaryActionTriggered(inputView:)), for: .primaryActionTriggered)
     }
